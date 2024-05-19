@@ -162,12 +162,15 @@ class FcmNotification
                 $data = [
                     "message" => [
                         "token" => $this->token,
-                        "notification" => [
-                            "title" => $this->title,
-                            "body" => $this->body,
-                            "icon" => $this->icon !=null ? asset($this->icon) : '',
-                            "click_action" => $this->click_action ?? ''
-                        ],
+                        "android" => [
+                            "priority" => "high",
+                            "notification" => [
+                                "title" => $this->title,
+                                "body" => $this->body,
+                                "icon" => $this->icon !=null ? asset($this->icon) : '',
+                                "click_action" => $this->click_action ?? ''
+                            ],   
+                        ]
                     ]
                 ];
             }
