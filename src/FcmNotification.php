@@ -16,6 +16,19 @@ class FcmNotification
     protected $click_action;
     protected $token;
     protected $topic;
+    protected $webPush;
+
+     
+
+    /** 
+     *Title of the notification.
+     *@param string $title
+     */
+    public function isWebPush($webPush)
+    {
+        $this->webPush = $webPush;
+        return $this;
+    }
 
     /** 
      *Title of the notification.
@@ -131,10 +144,24 @@ class FcmNotification
                 ]
             ];
         } elseif (isset($this->token)) {
-            $data = [
-                "message" => [
-                    "token" => $this->token,
-                    "webpush" => [
+            if(isset($this->webPush)) {
+                $data = [
+                    "message" => [
+                        "token" => $this->token,
+                        "webpush" => [
+                            "notification" => [
+                                "title" => $this->title,
+                                "body" => $this->body,
+                                "icon" => $this->icon !=null ? asset($this->icon) : '',
+                                "click_action" => $this->click_action ?? ''
+                            ],
+                        ]
+                    ]
+                ];
+            } else {
+                $data = [
+                    "message" => [
+                        "token" => $this->token,
                         "notification" => [
                             "title" => $this->title,
                             "body" => $this->body,
@@ -142,8 +169,8 @@ class FcmNotification
                             "click_action" => $this->click_action ?? ''
                         ],
                     ]
-                ]
-            ];
+                ];
+            }
         }
 
         $encodedData = json_encode($data);
