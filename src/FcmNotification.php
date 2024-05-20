@@ -17,13 +17,14 @@ class FcmNotification
     protected $token;
     protected $topic;
     protected $webPush;
+    protected $extraData;
 
-     
+    public function setExtraData($extraData)
+    {
+        $this->extraData = $extraData;
+        return $this;
+    } 
 
-    /** 
-     *Title of the notification.
-     *@param string $title
-     */
     public function isWebPush($webPush)
     {
         $this->webPush = $webPush;
@@ -148,6 +149,7 @@ class FcmNotification
                 $data = [
                     "message" => [
                         "token" => $this->token,
+                        "data" => $this->extraData,
                         "webpush" => [
                             "notification" => [
                                 "title" => $this->title,
@@ -162,6 +164,7 @@ class FcmNotification
                 $data = [
                     "message" => [
                         "token" => $this->token,
+                        "data" => $this->extraData,
                         "android" => [
                             "priority" => "high",
                             "notification" => [
