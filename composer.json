@@ -22,5 +22,5 @@
         "google/apiclient-services": [
           "FirebaseCloudMessaging"
         ]
-  },
+  }
 }
